@@ -25,7 +25,7 @@ export default function SkillsPage({ me, homework, onStartSkill, onStartHomework
   return (
     <main className="page">
       <div className="page-head">
-        <h2>Exponent <h2>Algebra Skills</h2>amp; Logarithm Skills</h2>
+        <h2>Exponent &amp; Logarithm Skills</h2>
         <p className="muted">Pick a skill and practice until your SmartScore hits <strong>100</strong>! Medals: 🥉 70 &nbsp; 🥈 90 &nbsp; 🥇 100</p>
       </div>
       <div>
