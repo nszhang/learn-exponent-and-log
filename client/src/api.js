@@ -4,12 +4,12 @@
 // (which the Vite dev server proxies to :3001).
 const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
-let token = localStorage.getItem('aa_token') || null;
+let token = localStorage.getItem('ea_token') || null;
 
 export function setToken(t) {
   token = t;
-  if (t) localStorage.setItem('aa_token', t);
-  else localStorage.removeItem('aa_token');
+  if (t) localStorage.setItem('ea_token', t);
+  else localStorage.removeItem('ea_token');
 }
 
 export async function api(method, path, body) {
@@ -22,6 +22,10 @@ export async function api(method, path, body) {
     body: body ? JSON.stringify(body) : undefined
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  if (!res.ok) {
+    const err = new Error(data.error || `Request failed (${res.status})`);
+    err.status = res.status;
+    throw err;
+  }
   return data;
 }

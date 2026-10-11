@@ -26,9 +26,10 @@ function ToastList({ toasts }) {
 }
 
 export default function App() {
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('aa_user') || 'null'));
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('ea_user') || 'null'));
   const [page, setPage] = useState('home');
   const [me, setMe] = useState(null);
+  const [loadError, setLoadError] = useState(null);
   const [homework, setHomework] = useState(null);
   const [toasts, setToasts] = useState([]);
   const [practiceCfg, setPracticeCfg] = useState(null);
@@ -43,11 +44,18 @@ export default function App() {
   const fireConfetti = useCallback(() => setConfettiTick(t => t + 1), []);
 
   const refreshMe = useCallback(async () => {
-    try { setMe(await api('GET', '/api/me')); } catch { /* token expired */ }
-  }, []);
+    try {
+      setLoadError(null);
+      setMe(await api('GET', '/api/me'));
+    } catch (e) {
+      if (e.status === 401) logout();           // expired/foreign token → back to login
+      else setLoadError('Could not reach the server — check your connection.');
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const refreshHomework = useCallback(async () => {
-    try { setHomework(await api('GET', '/api/homework')); } catch { /* ignore */ }
-  }, []);
+    try { setHomework(await api('GET', '/api/homework')); }
+    catch (e) { if (e.status === 401) logout(); }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (user) {
@@ -59,12 +67,12 @@ export default function App() {
 
   function onAuth({ token, user: u }) {
     setToken(token);
-    localStorage.setItem('aa_user', JSON.stringify(u));
+    localStorage.setItem('ea_user', JSON.stringify(u));
     setUser(u);
   }
   function logout() {
     setToken(null);
-    localStorage.removeItem('aa_user');
+    localStorage.removeItem('ea_user');
     setUser(null); setMe(null); setHomework(null); setPracticeCfg(null);
   }
 
@@ -123,6 +131,16 @@ export default function App() {
       <PracticePage cfg={practiceCfg} me={me} toast={toast}
         fireConfetti={fireConfetti} onExit={() => exitPractice(practiceCfg)} />
     ) : (<>
+      {loadError && !me && (
+        <main className="page">
+          <p>⚠️ {loadError}{' '}
+            <button className="btn btn-primary" type="button"
+              onClick={() => { setLoadError(null); refreshMe(); refreshHomework(); }}>
+              Retry
+            </button>
+          </p>
+        </main>
+      )}
       {page === 'home' && <SkillsPage me={me} homework={homework}
         onStartSkill={startSkill} onStartHomework={startHomework} toast={toast} />}
       {page === 'homework' && <HomeworkPage homework={homework} onStart={startHomework} />}
