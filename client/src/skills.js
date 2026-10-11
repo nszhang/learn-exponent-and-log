@@ -44,7 +44,7 @@ export const TOPICS = [
     id: 'powers', icon: '🚀', name: 'Powers & bases',
     skills: [
       {
-        id: 'A1', code: 'A.1', title: 'Evaluate powers',
+        id: 'expA1', code: 'A.1', title: 'Evaluate powers',
         gen() {
           const b = ri(2, 5), n = ri(2, b <= 3 ? 5 : 4);
           const val = Math.pow(b, n);
@@ -58,7 +58,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'A2', code: 'A.2', title: 'Powers with negative bases',
+        id: 'expA2', code: 'A.2', title: 'Powers with negative bases',
         gen() {
           const b = ri(2, 5), n = ri(2, 4);
           const mag = Math.pow(b, n);
@@ -82,7 +82,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'A3', code: 'A.3', title: 'Zero and negative exponents',
+        id: 'expA3', code: 'A.3', title: 'Zero and negative exponents',
         gen() {
           const b = ri(2, 5);
           if (pick([true, false])) {
@@ -114,7 +114,7 @@ export const TOPICS = [
     id: 'rules', icon: '🧬', name: 'Exponent rules',
     skills: [
       {
-        id: 'B1', code: 'B.1', title: 'Product rule',
+        id: 'expB1', code: 'B.1', title: 'Product rule',
         gen() {
           const a = ri(2, 9), b = ri(2, 9);
           return {
@@ -127,7 +127,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'B2', code: 'B.2', title: 'Quotient rule',
+        id: 'expB2', code: 'B.2', title: 'Quotient rule',
         gen() {
           const a = ri(1, 9), b = ri(1, 9);
           const ans = a - b;
@@ -141,7 +141,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'B3', code: 'B.3', title: 'Power of a power',
+        id: 'expB3', code: 'B.3', title: 'Power of a power',
         gen() {
           const a = ri(2, 6), b = ri(2, 5);
           return {
@@ -154,7 +154,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'B4', code: 'B.4', title: 'Mixed exponent rules',
+        id: 'expB4', code: 'B.4', title: 'Mixed exponent rules',
         gen() {
           const a = ri(2, 8), b = ri(2, 8), c = ri(1, 6);
           const ans = a + b - c;
@@ -174,7 +174,7 @@ export const TOPICS = [
     id: 'expeq', icon: '📈', name: 'Exponential equations',
     skills: [
       {
-        id: 'C1', code: 'C.1', title: 'Solve bˣ = v',
+        id: 'expC1', code: 'C.1', title: 'Solve bˣ = v',
         gen() {
           const b = pick([2, 3, 5]);
           const x = ri(2, b === 5 ? 3 : 5);
@@ -189,7 +189,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'C2', code: 'C.2', title: 'Solve bˣ⁺ᵏ = v',
+        id: 'expC2', code: 'C.2', title: 'Solve bˣ⁺ᵏ = v',
         gen() {
           const b = pick([2, 3]);
           const k = ri(1, 3);
@@ -206,7 +206,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'C3', code: 'C.3', title: 'Solve bᵃˣ = v',
+        id: 'expC3', code: 'C.3', title: 'Solve bᵃˣ = v',
         gen() {
           const b = pick([2, 3, 5]);
           const a = pick([2, 3]);
@@ -227,7 +227,7 @@ export const TOPICS = [
     id: 'logs', icon: '🔢', name: 'Logarithms',
     skills: [
       {
-        id: 'D1', code: 'D.1', title: 'Evaluate logarithms',
+        id: 'expD1', code: 'D.1', title: 'Evaluate logarithms',
         gen() {
           const b = pick([2, 3, 5, 10]);
           const ans = ri(2, b >= 5 ? 3 : 4);
@@ -242,7 +242,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'D2', code: 'D.2', title: 'Convert between log and exponential form',
+        id: 'expD2', code: 'D.2', title: 'Convert between log and exponential form',
         gen() {
           const b = pick([2, 3, 5, 10]);
           const y = ri(2, 3);
@@ -263,7 +263,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'D3', code: 'D.3', title: 'Solve log_b(x) = m',
+        id: 'expD3', code: 'D.3', title: 'Solve log_b(x) = m',
         gen() {
           const b = pick([2, 3, 5]);
           const mExp = ri(2, 4);
@@ -277,7 +277,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'D4', code: 'D.4', title: 'Solve log_b(x + k) = m',
+        id: 'expD4', code: 'D.4', title: 'Solve log_b(x + k) = m',
         gen() {
           const b = pick([2, 3]);
           const mExp = ri(2, 3);
@@ -294,7 +294,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'D5', code: 'D.5', title: 'Combine logarithms',
+        id: 'expD5', code: 'D.5', title: 'Combine logarithms',
         gen() {
           const b = pick([2, 3]);
           const p = ri(1, 4), q = ri(1, 4);
@@ -314,7 +314,7 @@ export const TOPICS = [
         }
       },
       {
-        id: 'D6', code: 'D.6', title: 'Natural logarithms and e',
+        id: 'expD6', code: 'D.6', title: 'Natural logarithms and e',
         gen() {
           const form = ri(1, 4);
           if (form === 1) {
