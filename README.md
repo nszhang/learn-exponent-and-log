@@ -1,0 +1,63 @@
+# xⁿ ExponentAce
+
+An interactive, IXL-inspired learning platform for **exponentiation and
+logarithms**. Students practice randomly generated problems, climb an IXL-style
+**SmartScore (0–100)** per skill, complete daily and teacher-assigned homework,
+and earn medals, badges, and stars. Teachers assign exercises and track
+per-student progress.
+
+**Stack:** React 18 + Vite · Node.js + Express · PostgreSQL (JWT auth, bcrypt)
+Sister project of AlgebraAce (same engine, math content swapped).
+
+## Quick start
+
+```bash
+npm run setup        # install server + client deps
+npm run db           # start PostgreSQL (docker compose)
+npm run dev:server   # API on :3001
+npm run dev:client   # React dev server on :5173 (proxies /api → :3001)
+```
+
+There is **no public signup** — accounts are created by an admin:
+
+```bash
+node server/scripts/create-admin.mjs [username] [password]
+```
+
+## Content
+
+### 🎒 Students — 16 skills in 4 topics
+| Topic | Skills |
+|---|---|
+| 🚀 Powers & bases | Evaluate powers, negative bases, zero & negative exponents |
+| 🧬 Exponent rules | Product, quotient, power-of-a-power, mixed |
+| 📈 Exponential equations | bˣ = v · bˣ⁺ᵏ = v · bᵃˣ = v |
+| 🔢 Logarithms | Evaluate logs, log⇔exp conversion, solve log equations, combine logs, ln & e |
+
+### 🎓 Learn section
+- **Step-by-step animated solver** for 4 equation families (bˣ=v, bˣ⁺ᵏ=v,
+  log_b(x)=m, log_b(x+k)=m) with Play/Pause/Back/Step and speed control
+- **Graph playground**: plot `y = a·bˣ` and `y = a·log_b(x)` with sliders +
+  steppers for a and b, key points marked ((0,a), (1,a·b), (1,0), (b,a)),
+  and scroll-wheel zoom (0.1×–1000×) with adaptive grid
+
+### 🍎 Teachers / ⚙️ Admins
+Same engine as AlgebraAce: homework assignment with due dates, per-student
+progress dashboards, admin-managed accounts.
+
+## Tests
+
+```bash
+npm test    # 13 E2E API tests (pg-mem, no DB needed)
+```
+
+Question generators verified over 48,000 generated problems; lesson engine over
+20,000 generated lessons; 18 jsdom interaction tests for the animator and graph.
+
+## Deployment
+
+Production: https://math.pnpsolutions.ca/learn-exponent-and-log/ — see
+`deploy.sh` (rsync code → build on server → restart systemd service → health
+check). Code only; `server/.env` and the database are never touched.
+
+Docker (self-contained): `docker compose up --build app` → http://localhost:3001
