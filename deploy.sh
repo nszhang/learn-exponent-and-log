@@ -10,7 +10,7 @@
 #   nginx:   /etc/nginx/conf.d/math.pnpsolutions.ca.conf
 #            location /learn-exponent-and-log/{,/api/} → proxy to :3005 (prefix stripped)
 set -euo pipefail
-HOST=nzhang@webapp01.pnpsolutions.ca
+HOST="${DEPLOY_HOST:-webapp01.pnpsolutions.ca}"
 APP=/var/www/learn-exponent-and-log
 
 rsync -a --delete \
